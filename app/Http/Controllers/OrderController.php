@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CalculateDeliveryRequest;
 use App\Http\Requests\StoreOrderRequest;
 use App\Models\Order;
-use Illuminate\Http\Request;
+use App\Services\Delivery;
 
 class OrderController extends Controller
 {
@@ -15,7 +16,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return Order::all();
+        return response()->json(Order::all());
     }
 
     /**
@@ -26,7 +27,8 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        return Order::create($request->all());
+        $order = Order::create($request->all());
+        return response()->json($order);
     }
 
     /**
@@ -37,11 +39,15 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        return Order::find($id);
+        return response()->json(Order::find($id));
     }
 
-    public function calculateDelivery(Request $request)
+    public function calculateDelivery(CalculateDeliveryRequest $request)
     {
-        dd($request->all());
+        $order = Order::find($request->id);
+        $delivery = new Delivery($order->id, $order->lat, $order->long);
+        $price = $delivery->calculatePrice();
+
+        return response()->json(['price' => $price]);
     }
 }

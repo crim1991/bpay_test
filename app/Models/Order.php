@@ -12,6 +12,6 @@ class Order extends Model
     protected $table = 'orders';
 
     protected $fillable = [
-        'name', 'description', 'delivery_place'
+        'name', 'description', 'lat', 'long'
     ];
 }

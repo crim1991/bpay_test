@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreOrderRequest extends FormRequest
+class CalculateDeliveryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,7 @@ class StoreOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:50',
-            'description' => 'required|max:1000',
-            'lat' => 'required|max:20',
-            'long' => 'required|max:20'
+            'id' => 'exists:orders,id'
         ];
     }
 }

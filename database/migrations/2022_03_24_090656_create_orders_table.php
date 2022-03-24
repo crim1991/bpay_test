@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->string('delivery_place');
+            $table->decimal('lat', 10, 8);
+            $table->decimal('long', 11, 8);
             $table->timestamps();
         });
     }
