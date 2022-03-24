@@ -39,4 +39,9 @@ class OrderController extends Controller
     {
         return Order::find($id);
     }
+
+    public function calculateDelivery(Request $request)
+    {
+        dd($request->all());
+    }
 }

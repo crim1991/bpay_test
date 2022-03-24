@@ -15,7 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('order', OrderController::class);
+Route::prefix('order')->group(function () {
+    Route::resource('/', OrderController::class);
+    Route::get('delivery-price', [OrderController::class, 'calculateDelivery']);
+});
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
